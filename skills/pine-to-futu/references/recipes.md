@@ -2,7 +2,7 @@
 
 富途 `fta` 模块只内置了基础均线类函数，`ta.rsi` / `ta.macd` / `ta.bb` 等常用指标都必须用基础函数**组装**。本文件给出经过口径核对的标准配方，转换时直接套用，不要临场现推公式。
 
-约定：`src`/`x` 均为 `Sequence`；`n`、`fast`、`slow`、`sig` 等为正整数参数。**所有配方均为代码片段**，假设脚本顶部已包含 9 个模块的标准引入块（见 [SKILL.md](../SKILL.md) 第三节骨架）。
+约定：`src`/`x` 均为 `Sequence`；`n`、`fast`、`slow`、`sig` 等为正整数参数。**所有配方均为代码片段**，假设脚本顶部已包含 9 个模块的标准引入块（见 [SKILL.md](../SKILL.md) 第三节骨架）；用到 `math.nan` 的配方（如 2.14 枢轴点）还需在开头显式 `import math`。
 
 ---
 
@@ -166,7 +166,7 @@ swma_val = (src + 2 * src.ref(1) + 2 * src.ref(2) + src.ref(3)) / 6
 ```python
 left, right = 5, 5
 ph_cond = ref(high(), right) == hhv(high(), left + right + 1)
-ph = iff(ph_cond, ref(high(), right), math.nan)
+ph = iff(ph_cond, ref(high(), right), math.nan)   # 需在脚本开头 import math
 plot("PivotHigh", ph, color=Color.red, style=Line.circles)
 ```
 

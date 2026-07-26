@@ -19,7 +19,7 @@ from fderivative import *
 引入之后：
 - 各模块函数 → **裸名直接调用**（如 `ema(x, n)`、`close()`、`plot(...)`）
 - 枚举/内置类随星号引入一并可用 → 类名前缀：`Color.red`、`Line.line`、`Shape.arrowup`、`BarType.K_DAY`、`FinPeriod.FQ`、`MoneyFlowType.large`
-- `math` / `random` / `json` 是 Python 标准库模块 → 保持模块前缀：`math.pi`、`math.nan`、`random.random()`、`json.dumps(obj)`
+- `math` / `random` / `json` 是 Python 标准库模块 → 保持模块前缀：`math.pi`、`math.nan`、`random.random()`、`json.dumps(obj)`，且**必须显式 import 才能用**：用到 `math` 就在脚本开头写 `import math`（`random`/`json` 同理，不会自动可用）
 
 ---
 
@@ -76,7 +76,7 @@ from fderivative import *
 | `close[n]` | `close(n)`（fquote 函数自带移位参数，三种写法等价） |
 | `x[0]` | `x` |
 | 负偏移 `x[-1]`（未来数据） | ❌ 手册未支持；枢轴类逻辑见 recipes.md |
-| `na` | `math.nan`（标量语境可 `None`） |
+| `na` | `math.nan`（需先 `import math`；标量语境可 `None`） |
 | `na(x)` | `is_na(x)` → `Sequence[bool]` |
 | `nz(x)` / `nz(x, v)` | `replace_na(x, 0)` / `replace_na(x, v)` |
 | `fixnan(x)` | `fill_na(x, "forward")`；`fill_na(x, "backward")` 为富途独有的反向填充 |

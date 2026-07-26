@@ -114,6 +114,7 @@ from fta import *
 from ftool import *
 from ffinance import *
 from fderivative import *
+# 用到 math.nan / math.pi 等标准库功能时，必须再显式写：import math（random / json 同理）
 
 indicator("DEMA", "双均线", main_chart=True)   # ⚠️ 前两个参数必须按位置传递，不能写 short_name=/name=
 
@@ -124,7 +125,7 @@ plot("Fast", ema(close(), fast_len), color=Color.hex("#FFA500"), linewidth=2)
 plot("Slow", ema(close(), slow_len), color=Color.blue, linewidth=2)
 ```
 
-要点：① 脚本**必须以 9 个模块的 `from xxx import *` 引入块开头**（fbasic/fdatetime/fmath/fplot/fquote/fta/ftool/ffinance/fderivative），否则执行时找不到函数；② **`indicator()` 的前两个参数必须按位置传递**（`indicator("DEMA", "双均线", main_chart=True)`），`short_name=`/`name=` 命名形式会报错；③ `plot` 的**名称是第一个参数**；④ `color.orange` 在富途无内置色，用 `Color.hex()` 兜底；⑤ 引入后模块函数裸名调用（`ema`/`close`/`plot`），枚举类带类名前缀（`Color.red`、`Line.line`、`Shape.arrowup`、`BarType.K_DAY`），Python 标准库 `math`/`random`/`json` 保持模块前缀（`math.nan`、`random.random()`）。
+要点：① 脚本**必须以 9 个模块的 `from xxx import *` 引入块开头**（fbasic/fdatetime/fmath/fplot/fquote/fta/ftool/ffinance/fderivative），否则执行时找不到函数；② **`indicator()` 的前两个参数必须按位置传递**（`indicator("DEMA", "双均线", main_chart=True)`），`short_name=`/`name=` 命名形式会报错；③ `plot` 的**名称是第一个参数**；④ `color.orange` 在富途无内置色，用 `Color.hex()` 兜底；⑤ 引入后模块函数裸名调用（`ema`/`close`/`plot`），枚举类带类名前缀（`Color.red`、`Line.line`、`Shape.arrowup`、`BarType.K_DAY`）；Python 标准库 `math`/`random`/`json` 保持模块前缀（`math.nan`、`random.random()`），且**用到 `math` 必须在脚本开头显式 `import math`**（`random`/`json` 同理，标准库模块不会自动可用）。
 
 ## 四、核心映射速查表
 
@@ -146,7 +147,7 @@ plot("Slow", ema(close(), slow_len), color=Color.blue, linewidth=2)
 
 | Pine | 富途 |
 |---|---|
-| `na` | `math.nan`（标量语境也可用 `None`） |
+| `na` | `math.nan`（需在脚本开头 `import math`；标量语境也可用 `None`） |
 | `na(x)` | `is_na(x)` |
 | `nz(x)` / `nz(x, v)` | `replace_na(x, 0)` / `replace_na(x, v)` |
 | `fixnan(x)` | `fill_na(x, "forward")` |
@@ -298,6 +299,7 @@ plot_icon("下穿", cross_dn, 75, Shape.triangledown, color=Color.red, size=2)
 
 - [ ] 脚本顶部包含 9 个模块的标准引入块（`from fbasic import *` … `from fderivative import *`）
 - [ ] `indicator()` 前两个参数为位置传参（未写成 `short_name=`/`name=` 命名形式）
+- [ ] 用到 `math.nan`/`math.pi` 时脚本开头已显式 `import math`（用到 `random`/`json` 同理）
 - [ ] 代码中已无 `//@version`、`ta.`、Pine 版 `math.*`（math.max/math.sum/math.pow 等；富途的 `math.nan`/`math.pi` 属正常保留）、`input.`、`color.`、`shape.*`、`size.*`、`strategy.*`/`request.*` 残留
 - [ ] 所有行情序列都是函数调用形式：`close()`/`open()`/`high()`/`low()`/`vol()`
 - [ ] 所有 `x[n]` 已改为 `ref(x, n)` / `x.ref(n)`
