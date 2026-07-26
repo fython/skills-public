@@ -80,7 +80,7 @@ Pine 中大量 `x := f(x[1])` 的递归写法，在富途中必须换成对应�
    | 其余（均线/动量/通道/交叉/统计类） | ✅ 可转 |
 
 1. **拆分可转与不可转成分**：按第 0 步分诊结果只转换可转部分；不可转部分按上方「转换铁律」向用户声明，不要静默丢弃
-2. **写标准引入块与声明头**：删除 `//@version=6`，在脚本顶部写入 9 个模块的 `from xxx import *` 引入块（见下方骨架，缺少会导致执行时找不到函数）；`indicator(...)` → `indicator(short_name, name, main_chart, remarks)`，`overlay=true` → `main_chart=True`
+2. **写标准引入块与声明头**：删除 `//@version=6`，在脚本顶部写入 9 个模块的 `from xxx import *` 引入块（见下方骨架，缺少会导致执行时找不到函数）；`indicator(...)` → `indicator(short_name, name, main_chart, remarks)`（⚠️ 前两个参数必须**按位置**传递，写成 `short_name=`/`name=` 命名参数会报错），`overlay=true` → `main_chart=True`
 3. **改写输入**：`input.int/float/bool/string` → `input_parameter("标题", 默认值)`（类型由默认值推断）；`input.source` **无对应**——在代码顶部定义 `src = close()` 并注释提示用户手动切换；minval/maxval/step/options/tooltip 全部丢弃（可在 remarks 中说明）
 4. **改写数据序列与历史引用**：内置变量 → fquote 函数调用（`close` → `close()`）；`x[n]` → `ref(x, n)` / `x.ref(n)`
 5. **逐函数映射**：查 [references/function-mapping.md](references/function-mapping.md) 的完整对照表；`ta.rsi/macd/bb/stoch/cci/dmi/hma` 等无内置函数的，套用 [references/recipes.md](references/recipes.md) 的配方
@@ -115,7 +115,7 @@ from ftool import *
 from ffinance import *
 from fderivative import *
 
-indicator(short_name="DEMA", name="双均线", main_chart=True)
+indicator("DEMA", "双均线", main_chart=True)   # ⚠️ 前两个参数必须按位置传递，不能写 short_name=/name=
 
 fast_len = input_parameter("快线", 5)   # Pine 的 minval/maxval 不支持，丢弃
 slow_len = input_parameter("慢线", 20)
@@ -124,7 +124,7 @@ plot("Fast", ema(close(), fast_len), color=Color.hex("#FFA500"), linewidth=2)
 plot("Slow", ema(close(), slow_len), color=Color.blue, linewidth=2)
 ```
 
-要点：① 脚本**必须以 9 个模块的 `from xxx import *` 引入块开头**（fbasic/fdatetime/fmath/fplot/fquote/fta/ftool/ffinance/fderivative），否则执行时找不到函数；② `plot` 的**名称是第一个参数**；③ `color.orange` 在富途无内置色，用 `Color.hex()` 兜底；④ 引入后模块函数裸名调用（`ema`/`close`/`plot`），枚举类带类名前缀（`Color.red`、`Line.line`、`Shape.arrowup`、`BarType.K_DAY`），Python 标准库 `math`/`random`/`json` 保持模块前缀（`math.nan`、`random.random()`）。
+要点：① 脚本**必须以 9 个模块的 `from xxx import *` 引入块开头**（fbasic/fdatetime/fmath/fplot/fquote/fta/ftool/ffinance/fderivative），否则执行时找不到函数；② **`indicator()` 的前两个参数必须按位置传递**（`indicator("DEMA", "双均线", main_chart=True)`），`short_name=`/`name=` 命名形式会报错；③ `plot` 的**名称是第一个参数**；④ `color.orange` 在富途无内置色，用 `Color.hex()` 兜底；⑤ 引入后模块函数裸名调用（`ema`/`close`/`plot`），枚举类带类名前缀（`Color.red`、`Line.line`、`Shape.arrowup`、`BarType.K_DAY`），Python 标准库 `math`/`random`/`json` 保持模块前缀（`math.nan`、`random.random()`）。
 
 ## 四、核心映射速查表
 
@@ -255,7 +255,7 @@ from ftool import *
 from ffinance import *
 from fderivative import *
 
-indicator(short_name="RSIX", name="RSI 50 轴交叉", main_chart=False,
+indicator("RSIX", "RSI 50 轴交叉", main_chart=False,
           remarks="RSI 上穿/下穿 50 轴提示。input.source 不支持，数据源请在代码中修改 src 一行")
 
 len_rsi = input_parameter("RSI 周期", 14)
@@ -297,6 +297,7 @@ plot_icon("下穿", cross_dn, 75, Shape.triangledown, color=Color.red, size=2)
 > ⚠️ **保真度灰色地带**：即使语法 100% 可转，以下差异仍可能导致两边数值对不上，交付时须提醒用户抽查对账：① na/nan 传播语义不同（Pine 的 `na > 1` 得 `na`，富途基于 nan 比较得 `False`），主要影响前 N 根 bar；② EMA/rma 的种子值处理可能不同，长序列末端收敛、头部有差异；③ 复权方式与 K 线数据源不同（如富途默认前复权），属平台数据层差异而非转换错误。
 
 - [ ] 脚本顶部包含 9 个模块的标准引入块（`from fbasic import *` … `from fderivative import *`）
+- [ ] `indicator()` 前两个参数为位置传参（未写成 `short_name=`/`name=` 命名形式）
 - [ ] 代码中已无 `//@version`、`ta.`、Pine 版 `math.*`（math.max/math.sum/math.pow 等；富途的 `math.nan`/`math.pi` 属正常保留）、`input.`、`color.`、`shape.*`、`size.*`、`strategy.*`/`request.*` 残留
 - [ ] 所有行情序列都是函数调用形式：`close()`/`open()`/`high()`/`low()`/`vol()`
 - [ ] 所有 `x[n]` 已改为 `ref(x, n)` / `x.ref(n)`

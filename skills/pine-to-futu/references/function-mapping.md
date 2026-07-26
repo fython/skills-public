@@ -28,7 +28,7 @@ from fderivative import *
 | Pine V6 | 富途 | 备注 |
 |---|---|---|
 | `//@version=6` | 删除 | 富途无版本头 |
-| `indicator(title, shorttitle, overlay, ...)` | `indicator(short_name, name, main_chart, remarks)` | `overlay=true` → `main_chart=True`；`short_name` 不支持汉字；`precision`/`format`/`timeframe` 等参数无对应 |
+| `indicator(title, shorttitle, overlay, ...)` | `indicator(short_name, name, main_chart, remarks)` | ⚠️ 前两个参数必须**按位置**传递（`indicator("DEMA", "双均线", main_chart=True)`），命名形式报错；`overlay=true` → `main_chart=True`；`short_name` 不支持汉字；`precision`/`format`/`timeframe` 等参数无对应 |
 | `strategy(...)` | ❌ 不可转换 | 富途指标无下单/回测引擎；`output_parameter(**kwargs)` 仅用于声明回测变量 |
 | `input.int(def, title, minval, maxval, step, ...)` | `input_parameter(title, default)` | minval/maxval/step/tooltip/group 全部丢弃，可在 remarks 中说明取值范围 |
 | `input.float(...)` / `input.bool(...)` / `input.string(...)` | `input_parameter(title, default)` | 类型由默认值推断 |
