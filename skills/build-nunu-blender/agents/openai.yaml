@@ -1,0 +1,13 @@
+interface:
+  display_name: 努努平面图转 Blender 模型
+  short_description: 依据平面图构建填充素体和无填充发片，核对贴图、装配与多视角
+  default_prompt: 使用 $build-nunu-blender，根据我的努努平面图建立可编辑的 Blender 模型并完成多视角验收。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

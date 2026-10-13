@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "design_id": "REPLACE_WITH_DESIGN_ID",
+  "deliverable_level": "concept",
+  "units": "unknown",
+  "target_height": null,
+  "scale_evidence": null,
+  "references": [],
+  "materials": [],
+  "parts": [
+    {
+      "id": "REPLACE_WITH_PART_ID",
+      "role": "hair",
+      "filled": false,
+      "quantity": 1,
+      "source": {"file": null, "page": null, "region": null, "coordinates": null},
+      "front_art": null,
+      "back_art": null,
+      "outline": null,
+      "seam_line": null,
+      "cut_line": null,
+      "seam_allowance": null,
+      "material": null,
+      "stretch_direction": null,
+      "attachment_ids": [],
+      "pinned_landmarks": [],
+      "assumptions": []
+    }
+  ],
+  "connections": [],
+  "landmarks": [],
+  "assumptions": [],
+  "validation": {"source_mapping": "not_checked", "assembly": "not_checked", "multiview": "not_checked", "physical_sample": "not_done"}
+}

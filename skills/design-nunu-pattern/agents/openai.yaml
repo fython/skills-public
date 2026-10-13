@@ -1,0 +1,13 @@
+interface:
+  display_name: 努努平面图设计
+  short_description: 从已有努努或其他风格角色出发，设计可追溯的平面图与装配说明
+  default_prompt: 使用 $design-nunu-pattern，根据我的参考图完成努努化设计、部件拆分和平面图交付。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
