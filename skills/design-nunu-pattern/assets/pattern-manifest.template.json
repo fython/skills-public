@@ -1,10 +1,18 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "design_id": "REPLACE_WITH_DESIGN_ID",
+  "pattern_version": null,
   "deliverable_level": "concept",
   "units": "unknown",
   "target_height": null,
   "scale_evidence": null,
+  "print_setup": {
+    "output_size": null,
+    "page_or_fabric_size": null,
+    "print_scale_percent": null,
+    "calibration_mark": null,
+    "raster_dpi": null
+  },
   "references": [],
   "materials": [],
   "parts": [
@@ -13,6 +21,8 @@
       "role": "hair",
       "filled": false,
       "quantity": 1,
+      "side": null,
+      "mirror_rule": null,
       "source": {"file": null, "page": null, "region": null, "coordinates": null},
       "front_art": null,
       "back_art": null,
@@ -22,6 +32,17 @@
       "seam_allowance": null,
       "material": null,
       "stretch_direction": null,
+      "nap_direction": null,
+      "layout_rotation_constraints": null,
+      "construction": {
+        "method": null,
+        "layer_count": null,
+        "layers": [],
+        "edge_treatment": null,
+        "edge_allowance": null,
+        "seam_allowance_included": null,
+        "turning_opening": null
+      },
       "attachment_ids": [],
       "pinned_landmarks": [],
       "assumptions": []
@@ -29,6 +50,14 @@
   ],
   "connections": [],
   "landmarks": [],
+  "sample_records": [],
   "assumptions": [],
-  "validation": {"source_mapping": "not_checked", "assembly": "not_checked", "multiview": "not_checked", "physical_sample": "not_done"}
+  "validation": {
+    "source_mapping": "not_checked",
+    "assembly": "not_checked",
+    "multiview": "not_checked",
+    "views": {"front": "not_checked", "side": "not_checked", "back": "not_checked", "top": "not_checked"},
+    "physical_sample": "not_done",
+    "physical_sample_result": "not_checked"
+  }
 }

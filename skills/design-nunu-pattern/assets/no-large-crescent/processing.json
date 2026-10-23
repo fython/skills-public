@@ -1,0 +1,67 @@
+{
+  "asset_set": "no-large-crescent-nunu",
+  "usage": {
+    "variants": "choose_one",
+    "first_sewing_step": "close confirmed darts before joining parts",
+    "physical_dimensions": null,
+    "print_calibration": "not_done",
+    "physical_sample": "not_done"
+  },
+  "processing": {
+    "tool": "ImageMagick 7.1.1-43",
+    "filter": "Lanczos",
+    "scale_factor": 2,
+    "depth_bits_per_channel": 8,
+    "output_format": "WebP",
+    "lossless": true,
+    "webp_method": 6,
+    "webp_quality": 100,
+    "metadata_stripped": true,
+    "crop": false,
+    "redraw": false,
+    "sharpen": false,
+    "watermark_review": "no identifiable platform watermark found during visual inspection",
+    "watermark_removal_performed": false,
+    "watermark_removal_regions": []
+  },
+  "validation": {
+    "visual_review": "source and output sheets inspected; labels, solid/dashed outlines, darts and alignment marks retained",
+    "layout": "uniform whole-image 2x scaling; no per-part transforms",
+    "lossless_check": "decoded WebP RGB pixels equal resized 8-bit PNG intermediate pixels",
+    "limitation": "Interpolation increases pixel dimensions; it does not restore original detail or establish physical sewing accuracy."
+  },
+  "assets": [
+    {
+      "variant": "white",
+      "source_size_px": [
+        1527,
+        1080
+      ],
+      "file": "white-2x.webp",
+      "output_size_px": [
+        3054,
+        2160
+      ],
+      "output_bytes": 966658,
+      "output_sha256": "b4268ba157d72f9072a2c8997cd4df0e3a6eaa8fa00f41b762ed95dd7696001c",
+      "comparison_png_bytes": 1525645,
+      "lossless_decode_matches_resized_png": true
+    },
+    {
+      "variant": "tinted",
+      "source_size_px": [
+        1527,
+        1080
+      ],
+      "file": "tinted-2x.webp",
+      "output_size_px": [
+        3054,
+        2160
+      ],
+      "output_bytes": 941916,
+      "output_sha256": "ec4624f48c7a25111f9fd2a254f22d1bdc2d3f8ef96c1d4b215aa4e2966d97a8",
+      "comparison_png_bytes": 1445373,
+      "lossless_decode_matches_resized_png": true
+    }
+  ]
+}
